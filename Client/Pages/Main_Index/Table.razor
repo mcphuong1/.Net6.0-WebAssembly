@@ -1,0 +1,48 @@
+﻿@page "/table"
+@using Tesing2.Shared
+@inject HttpClient Client
+@using System.Net.Http.Json
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject IDialogService DialogService
+
+
+<MudStack Justify="Justify.FlexStart" Spacing="2" Row="true">
+    <MudFab Class="mt-4 mb-2 ml-2" Variant="Variant.Outlined" Size="Size.Medium" @onclick="@(()=>AddDialog())" StartIcon="@Icons.Material.Filled.Add" Color="Color.Success">ADD</MudFab>
+</MudStack>
+<MudTable Items="@hocsinhs" Dense="@dense"
+          GroupHeaderStyle="background-color:var(--mud-palette-background-grey)"
+          GroupFooterClass="mb-4" Striped="@striped">
+
+    <ColGroup>
+        <col style="width:200px;" />
+        <col style="width:400px;" />
+        <col style="width:300px;" />
+        <col style="width:300px;" />
+    </ColGroup>
+
+    <ToolBarContent>
+        <MudPaper Width="300px" Elevation="0">
+            <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-2 mb-2 m-lg-2"></MudTextField>
+        </MudPaper>
+    </ToolBarContent>
+
+    <HeaderContent>
+        <MudTh title="ID"><MudTableSortLabel Enabled="@enabled" SortBy="new Func<HocSinh, object>(x=>x.id)">ID</MudTableSortLabel></MudTh>
+        <MudTh title="Name"><MudTableSortLabel Enabled="@enabled" SortBy="new Func<HocSinh, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
+        <MudTh title="Class"><MudTableSortLabel Enabled="@enabled" SortBy="new Func<HocSinh, object>(x=>x.Class)">Class</MudTableSortLabel></MudTh>
+        <MudTh title="Phone"><MudTableSortLabel Enabled="@enabled" SortBy="new Func<HocSinh, object>(x=>x.Phone)">Phone</MudTableSortLabel></MudTh>
+    </HeaderContent>
+
+    <RowTemplate>
+        <MudTd DataLabel="ID" >@context.id</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Class">@context.Class</MudTd>
+        <MudTd DataLabel="Phone">@context.Phone</MudTd>
+        <MudFab Class="mb-1 mt-2 " Variant="Variant.Outlined" @onclick="@(()=>EditDialog(@context.id))" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">EDIT</MudFab>
+        <MudFab Class="mb-1 mt-2 m-lg-4 " Variant="Variant.Outlined" @onclick="@(()=>DeleteDialog(@context))" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">DELETE</MudFab>
+    </RowTemplate>
+     <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>

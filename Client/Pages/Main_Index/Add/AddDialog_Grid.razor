@@ -1,0 +1,19 @@
+﻿@using Tesing2.Shared
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
+<MudDialog Style="width=400px">
+    <DialogContent>
+        <MudTextField @bind-Value="hs.Name" Class="mt-4 ml-4" Label="Input Name" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+        <MudTextField @bind-Value="hs.Class" Class="mt-4 ml-4" Label="Input Class" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+        <MudTextField @bind-Value="hs.Phone" Class="mt-4 ml-4" Label="Input Phone" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled" Class="mt-4 ml-4" Color="Color.Success" @onclick="Confirm">ADD</MudButton>
+        <MudButton Variant="Variant.Outlined" Class="mt-4 ml-4" Color="Color.Default" @onclick="Cancel">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
+

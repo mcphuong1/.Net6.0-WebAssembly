@@ -1,0 +1,34 @@
+﻿@page "/grid"
+@using Tesing2.Shared
+@inject HttpClient Client
+@using System.Net.Http.Json
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject IDialogService DialogService
+<MudContainer Style="height=50%">
+	<MudDataGrid T="HocSinh" Items="@hocsinhs" Dense="@_dense" Striped="@_striped" Class="align-content-center">
+		<ToolBarContent>
+			<MudStack Justify="Justify.FlexStart" Spacing="16" Row="true">
+				<MudButton Class="mt-8 mb-6 " Variant="Variant.Outlined" @onclick="@(()=>AddDialog())" StartIcon="@Icons.Material.Filled.Add" Color="Color.Success">ADD</MudButton>
+			</MudStack>
+		</ToolBarContent>
+		<Columns>
+			<PropertyColumn Property="item => item.id.ToString()" Title="ID" Class="mt-4 mb-4"/>
+			<PropertyColumn Property="item => item.Name" Title="Name" Style="height=40px"/>
+			<PropertyColumn Property="item => item.Class" Title="Class" />
+			<PropertyColumn Property="item => item.Phone" Title="Phone" />
+
+			<TemplateColumn CellClass="d-flex justify-start">
+				<CellTemplate>
+					<MudStack Row="true">
+						<MudButton Class="mt-4 mb-4 " Variant="Variant.Outlined" @onclick="@(()=>EditDialog(@context.Item))" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Edit</MudButton>
+						<MudButton Class="mt-4 mb-4 " Variant="Variant.Outlined" @onclick="@((e)=>DeleteDialog(@context.Item))" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">DELETE</MudButton>
+					</MudStack>
+				</CellTemplate>
+			</TemplateColumn>
+		</Columns>
+		<PagerContent>
+			<MudDataGridPager T="HocSinh" />
+		</PagerContent>
+	</MudDataGrid>
+</MudContainer>
